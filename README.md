@@ -45,7 +45,7 @@ $ http POST 127.0.0.1:5000 question="What is black and white and red all over?" 
 ### Guess the answer to a riddle
 
 ```
-$ http POST 127.0.0.1:5000/2 guess="Carrot"
+$ http POST 127.0.0.1:5000/1 guess="Carrot"
 
 {
     "correct": true,
