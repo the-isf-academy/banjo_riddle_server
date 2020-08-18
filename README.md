@@ -12,7 +12,7 @@ interact with it using HTTP requests. In these examples, we will use the
 We are connecting to `127.0.0.1:5000`, which is the address of the Riddle server
 when it is running locally.
 
-## List the riddles
+### List the riddles
 ```
 $ http GET 127.0.0.1:5000 
 
@@ -28,7 +28,7 @@ $ http GET 127.0.0.1:5000
 }
 ```
 
-## Add a riddle
+### Add a riddle
 
 ```
 $ http POST 127.0.0.1:5000 question="What is black and white and red all over?" answer="A newspaper"
@@ -42,7 +42,7 @@ $ http POST 127.0.0.1:5000 question="What is black and white and red all over?" 
 }
 ```
 
-## Guess the answer to a riddle
+### Guess the answer to a riddle
 
 ```
 $ http POST 127.0.0.1:5000/2 guess="Carrot"
@@ -54,7 +54,7 @@ $ http POST 127.0.0.1:5000/2 guess="Carrot"
         "answer": "A carrot",
         "correct": 1,
         "guesses": 1,
-        "id": 2,
+        "id": 1,
         "question": "What is orange and sounds like a parrot?"
     }
 }
