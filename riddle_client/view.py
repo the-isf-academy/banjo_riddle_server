@@ -42,7 +42,7 @@ class RiddleView:
         riddle = self.api.get_riddle(riddle_id)
         print(riddle['question'])
         guess = input("> ")
-        correct = self.api.guess_riddle(guess)
+        correct = self.api.guess_riddle(riddle_id, guess)
         if correct:
             print("Yes!")
         else:
