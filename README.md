@@ -80,3 +80,8 @@ $ ./run.sh
 
 You can now access the riddle server at 127.0.0.1 from your own machine, or from
 your public IP address if you know what it is. 
+
+# Riddle Client
+
+Code is also provided for a client in `riddle_client`, however the API is
+incomplete.
