@@ -27,7 +27,7 @@ class RiddleView:
             self.list_riddles()
         elif choice == 1:
             riddle = self.api.get_random_riddle()
-            self.ask_riddle(riddle)
+            self.ask_riddle(riddle['id'])
         elif choice == 2:
             self.add_riddle()
 
