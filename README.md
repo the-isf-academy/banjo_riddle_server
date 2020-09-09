@@ -75,4 +75,8 @@ Now run the server.
 
 ```
 $ ./run.sh
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 ```
+
+You can now access the riddle server at 127.0.0.1 from your own machine, or from
+your public IP address if you know what it is. 
