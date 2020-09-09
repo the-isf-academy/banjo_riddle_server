@@ -1,3 +1,8 @@
+# RiddleView
+# ------------------
+# By Chris Proctor
+# RiddleView provides a nice user interface for guessing riddles. 
+
 from api import RiddleAPI
 
 class RiddleView:
