@@ -56,6 +56,7 @@ class RiddleView:
         choice = self.get_choice(question + " " + answer, choices)
         if choice == 0:
             self.api.add_riddle(question, answer)
+            self.show_menu()
         elif choice == 1:
             self.add_riddle()
         elif choice == 2:
