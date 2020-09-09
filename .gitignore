@@ -1,3 +1,5 @@
 env/*
-riddles/__pycache__/*
+__pycache__/*
 riddles.db
+*.pyc
+*.swp
