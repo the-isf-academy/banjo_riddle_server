@@ -1,7 +1,6 @@
 # This program runs the riddle server
 from flask import Flask, request
 from model import Riddle
-from helpers import check_input
 
 app = Flask(__name__)
 
