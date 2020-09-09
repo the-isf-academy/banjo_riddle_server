@@ -26,7 +26,7 @@ class RiddleAPI:
     def guess_riddle(self, riddle_id, guess):
         "Submits a guess to the server. Returns True or False"
         url = "/" + str(riddle_id)
-        response = requests.post(self.server + url, data={'guess': guess})
+        response = requests.post(self.server + url, json={'guess': guess})
         if response.ok:
             return response.json()
         else:
