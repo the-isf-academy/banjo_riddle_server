@@ -44,7 +44,7 @@ class RiddleAPI:
 
     def add_riddle(self, question, answer):
         "Adds a new riddle to the server"
-        route = "/riddles/add"
+        route = "/riddles/new"
         raise APIError("The API doesn't support `add_riddle` yet. Can you add it?")
 
 
