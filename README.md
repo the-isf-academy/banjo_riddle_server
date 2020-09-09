@@ -63,14 +63,7 @@ $ http POST 127.0.0.1:5000/1 guess="Carrot"
 
 ## Installation
 
-First, you may want to create a virtual environment:
-
-```
-$ python3 -m venv env 
-# source env/bin/activate
-```
-
-Now install the Riddle server.
+Download the code and install its dependencies. 
 
 ```
 $ git clone https://github.com/cproctor/riddle_server.git
@@ -78,7 +71,7 @@ $ cd riddle_server
 $ pip install -r requirements.txt
 ```
 
-Finally, run the server.
+Now run the server. 
 
 ```
 $ ./run.sh
