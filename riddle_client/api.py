@@ -16,8 +16,8 @@ class RiddleAPI:
 
     def get_all_riddles(self):
         "Fetches all the riddles from the server"
-        url = "/"
-        response = requests.get(self.server + url)
+        route = "/riddles/all"
+        response = requests.get(self.server + route)
         if response.ok:
             return response.json()['riddles']
         else:
@@ -25,8 +25,9 @@ class RiddleAPI:
             
     def guess_riddle(self, riddle_id, guess):
         "Submits a guess to the server. Returns True or False"
-        url = "/" + str(riddle_id)
-        response = requests.post(self.server + url, json={'guess': guess})
+        route = "/riddles/guess"
+        payload = {'guess': guess}
+        response = requests.post(self.server + route, json=payload)
         if response.ok:
             return response.json()
         else:
@@ -34,7 +35,7 @@ class RiddleAPI:
 
     def get_riddle(self, riddle_id):
         "Fetches a single riddle from the server"
-        url = "/" + str(riddle_id)
+        route = "/riddles/one"
         raise APIError("The API doesn't support `get_riddle` yet. Can you add it?")
 
     def get_random_riddle(self):
@@ -43,7 +44,7 @@ class RiddleAPI:
 
     def add_riddle(self, question, answer):
         "Adds a new riddle to the server"
-        url = "/"
+        route = "/riddles/add"
         raise APIError("The API doesn't support `add_riddle` yet. Can you add it?")
 
 

@@ -33,10 +33,14 @@ class RiddleView:
 
     def list_riddles(self):
         riddles = self.api.get_all_riddles()
-        choices = [riddle['question'] for riddle in riddles]
-        choice = self.get_choice("Which riddle do you want to guess?", choices)
-        riddle_id = riddles[choice]['id']
-        self.ask_riddle(riddle_id)
+        if len(riddles) == 0:
+            print("Sorry, there are no riddles on the server!")
+            self.show_menu()
+        else:
+            choices = [riddle['question'] for riddle in riddles]
+            choice = self.get_choice("Which riddle do you want to guess?", choices)
+            riddle_id = riddles[choice]['id']
+            self.ask_riddle(riddle_id)
 
     def ask_riddle(self, riddle_id):
         riddle = self.api.get_riddle(riddle_id)

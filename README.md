@@ -14,7 +14,7 @@ when it is running locally.
 
 ### List the riddles
 ```
-$ http GET 127.0.0.1:5000 
+$ http GET 127.0.0.1:5000/riddles/all
 
 {
     "riddles": [
@@ -28,10 +28,22 @@ $ http GET 127.0.0.1:5000
 }
 ```
 
+### Get one riddle by id
+```
+$ http GET 127.0.0.1:5000/riddles/one id=1
+
+{
+    "correct": 0,
+    "guesses": 0,
+    "id": 1,
+    "question": "What is orange and sounds like a parrot?"
+}
+```
+
 ### Add a riddle
 
 ```
-$ http POST 127.0.0.1:5000 question="What is black and white and red all over?" answer="A newspaper"
+$ http POST 127.0.0.1:5000/riddles/new question="What is black and white and red all over?" answer="A newspaper"
 
 {
     "answer": "A newspaper",
@@ -45,7 +57,7 @@ $ http POST 127.0.0.1:5000 question="What is black and white and red all over?" 
 ### Guess the answer to a riddle
 
 ```
-$ http POST 127.0.0.1:5000/1 guess="Carrot"
+$ http POST 127.0.0.1:5000/riddles/guess id=1 guess="Carrot"
 
 {
     "correct": true,
