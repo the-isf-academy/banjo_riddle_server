@@ -3,3 +3,4 @@ __pycache__/*
 riddles.db
 *.pyc
 *.swp
+database.sqlite
