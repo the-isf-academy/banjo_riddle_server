@@ -18,6 +18,14 @@ class Riddle(Model):
             self.correct, 
             self.guesses
         )
+    
+    def to_dict_answerless(self):
+        return {
+            "correct": self.correct,
+            "guesses": self.guesses,
+            "id": self.id,
+            "question": self.question
+        }
 
     def is_valid(self):
         "Checks whether this riddle is valid. In other words, when validate() finds no errors."

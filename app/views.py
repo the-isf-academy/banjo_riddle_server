@@ -2,18 +2,21 @@ from banjo.urls import route_get, route_post
 from banjo.http import BadRequest
 from .models import Riddle
 
+
 @route_get('riddles/all')
 def list_riddles(params):
     riddles = []
-    print(Riddle.objects.all())
+
     for riddle in Riddle.objects.all():
-        print('hi')
-        print(riddle.to_dict())
-        riddles.append(riddle.to_dict())
+        riddles.append(riddle.to_dict_answerless())
+
     return {'riddles':riddles}
 
 @route_post('riddles/new')
 def create_riddle(params):
+    if 'question' or 'answer' not in params:
+        raise BadRequest("incorrect request")
+    
     riddle = Riddle.from_dict(params)
     errors = riddle.validate_create()
 
@@ -26,15 +29,21 @@ def create_riddle(params):
 
 @route_get('riddles/one')
 def show_riddle(params):
+    if 'id' not in params:
+        raise BadRequest('incorrect request')
+
     id = params['id']
-    riddle = Riddle.objects.filter(id=id)[0]
+    riddle = Riddle.objects.get(id=id)
     return {'riddle':riddle.to_dict()}
 
 @route_post('riddles/guess')
 def guess_answer(params):
+    if 'guess' or 'or' not in params:
+        raise BadRequest('incorrect request')
+
     guess = params['guess']
     id = params['id']
-    riddle = Riddle.objects.filter(id=id)[0]
+    riddle = Riddle.objects.get(id=id)
     
     if riddle.check_guess(guess):
         return {'correct':riddle.to_dict()}
