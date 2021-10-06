@@ -23,13 +23,13 @@ class Riddle(Model):
         "Checks whether this riddle is valid. In other words, when validate() finds no errors."
         return len(self.validate()) == 0
 
-    def validate(self):
+    def validate_create(self):
         "Checks whether this riddle can be saved"
         errors = []
-        if self.question is None:
+        if self.question == "":
             errors.append("question is required")
-        if self.answer is None:
-            errors.append("question is required")
+        if self.answer == "":
+            errors.append("answer is required")
         return errors
 
     def difficulty(self):
@@ -59,11 +59,6 @@ class Riddle(Model):
         """
         return 1 - (self.correct + 1) / (self.guesses + 1)
 
-    def to_dict(self, with_answer=True):
-        "Returns this Riddle's properties in a dict, optionally including the answer"
-        properties = ["id", "question", "answer", "guesses", "correct"]
-        return {prop: value for prop, value in zip(properties, self.values(with_id=True)) 
-                if with_answer or prop != 'answer'}
 
     def check_guess(self, guess):
         """Checks whether a guess is correct and logs the attempt.
@@ -79,9 +74,21 @@ class Riddle(Model):
         - "it's a stick"    74
         - "idk"             40                                                                                             """
         self.guesses += 1
-        similarity = fuzz.ratio(guess.lower(), self.answer.lower)
+        similarity = fuzz.ratio(guess.lower(), self.answer.lower())
+        
         if similarity >= self.MIN_FUZZ_RATIO:
             self.correct+= 1
+            self.save()
             return True
         else:
+            self.save()
             return False
+        
+
+
+    def incorrect_guess(self):
+        return(
+            {'id': self.id,
+            'question': self.question,
+            'guesses': self.guesses}
+        )

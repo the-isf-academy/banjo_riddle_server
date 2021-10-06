@@ -23,6 +23,7 @@ class RiddleView:
             "Add a riddle"
         ]
         choice = self.get_choice("What do you want to do?", choices)
+        
         if choice == 0:
             self.list_riddles()
         elif choice == 1:

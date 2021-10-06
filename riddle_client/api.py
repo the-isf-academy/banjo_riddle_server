@@ -18,8 +18,12 @@ class RiddleAPI:
         "Fetches all the riddles from the server"
         route = "/riddles/all"
         response = requests.get(self.server + route)
+        
         if response.ok:
-            return response.json()['riddles']
+            if 'riddles' not in response.json():
+                return {}
+            else:
+                return response.json()['riddles']
         else:
             raise APIError(response.json()['errors'])
             
@@ -36,16 +40,32 @@ class RiddleAPI:
     def get_riddle(self, riddle_id):
         "Fetches a single riddle from the server"
         route = "/riddles/one"
-        raise APIError("The API doesn't support `get_riddle` yet. Can you add it?")
+        payload = {'id': riddle_id}
+        response = requests.get(self.server + route, json=payload)
+
+        if response.ok:
+            return response.json()
+        else:
+            raise APIError(response.json()['errors'])
 
     def get_random_riddle(self):
         "Fetches all riddles from the server and then randomly returns one"
-        raise APIError("The API doesn't support `get_random_riddle` yet. Can you add it?")
+        route = '/riddles/all'
+        response = requests.get(self.server + route)
+
+        if response.ok:
+            raise APIError(response.json()['errors'])
 
     def add_riddle(self, question, answer):
         "Adds a new riddle to the server"
         route = "/riddles/new"
-        raise APIError("The API doesn't support `add_riddle` yet. Can you add it?")
+        payload = {'question': question, 'answer': answer}
+        response = requests.post(self.server + route, json=payload)
+
+        if response.ok:
+            return response.json()
+        else:
+            raise APIError(response.json()['errors'])
 
 
     

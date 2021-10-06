@@ -1,25 +1,43 @@
 from banjo.urls import route_get, route_post
 from banjo.http import BadRequest
-from app.models import Riddle
+from .models import Riddle
 
 @route_get('riddles/all')
 def list_riddles(params):
-    riddles = sorted(Riddle.objects.all(), key=lambda riddle: riddle.difficulty())
-    return {'riddles': riddle.to_dict(with_answer=False) for riddle in riddles}
+    riddles = []
+    print(Riddle.objects.all())
+    for riddle in Riddle.objects.all():
+        print('hi')
+        print(riddle.to_dict())
+        riddles.append(riddle.to_dict())
+    return {'riddles':riddles}
 
 @route_post('riddles/new')
 def create_riddle(params):
     riddle = Riddle.from_dict(params)
-    errors = riddle.validate()
+    errors = riddle.validate_create()
+
     if len(errors) == 0:
         riddle.save()
-        return riddle.as_dict(with_answer=False)
+        return {'riddle',riddle.to_dict()}
     else:
-        raise BadRequest()
+        raise BadRequest(errors[0])
         
 
-#@app.route('/riddles/one', methods=['GET'])
-#def show_riddle():
+@route_get('riddles/one')
+def show_riddle(params):
+    id = params['id']
+    riddle = Riddle.objects.filter(id=id)[0]
+    return {'riddle':riddle.to_dict()}
 
-#@app.route('/riddles/guess', methods=['POST'])
-#def guess_answer():
+@route_post('riddles/guess')
+def guess_answer(params):
+    guess = params['guess']
+    id = params['id']
+    riddle = Riddle.objects.filter(id=id)[0]
+    
+    if riddle.check_guess(guess):
+        return {'correct':riddle.to_dict()}
+
+    else:
+        return {'incorrect guess':riddle.incorrect_guess()}
