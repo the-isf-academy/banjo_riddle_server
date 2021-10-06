@@ -14,7 +14,7 @@ def list_riddles(params):
 
 @route_post('riddles/new')
 def create_riddle(params):
-    if 'question' or 'answer' not in params:
+    if 'question' not in params or 'answer' not in params:
         raise BadRequest("incorrect request")
     
     riddle = Riddle.from_dict(params)
@@ -38,7 +38,8 @@ def show_riddle(params):
 
 @route_post('riddles/guess')
 def guess_answer(params):
-    if 'guess' or 'or' not in params:
+    print(params)
+    if 'guess' not in params or 'id' not in params:
         raise BadRequest('incorrect request')
 
     guess = params['guess']
