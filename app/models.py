@@ -27,6 +27,13 @@ class Riddle(Model):
             "question": self.question
         }
 
+    def to_dict_difficulty(self):
+        return {
+            "id": self.id,
+            "question": self.question,
+            "difficulty": self.difficulty(),
+        }
+
     def is_valid(self):
         "Checks whether this riddle is valid. In other words, when validate() finds no errors."
         return len(self.validate()) == 0

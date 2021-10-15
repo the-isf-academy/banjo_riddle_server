@@ -49,3 +49,12 @@ def guess_answer(params):
 
     else:
         return {'incorrect guess':riddle.incorrect_guess()}
+
+@route_get('riddles/difficulty')
+def show_riddle(params):
+    if 'id' not in params:
+        raise BadRequest('incorrect request')
+
+    id = params['id']
+    riddle = Riddle.objects.get(id=id)
+    return {'riddle':riddle.to_dict_difficulty()}
