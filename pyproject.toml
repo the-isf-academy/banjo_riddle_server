@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "riddle-server"
+version = "0.1.0"
+description = ""
+authors = ["emma <eqbrown@isf.edu.hk>"]
+readme = "README.md"
+packages = [{include = "riddle_server"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django-banjo = "^0.3.0"
+fuzzywuzzy = "^0.18.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
