@@ -10,7 +10,9 @@ class Riddle(Model):
     MIN_FUZZ_RATIO = 80
     
     def __repr__(self):
-        """Declares how to represent a Riddle as a string.                                                                 A riddle's string will look something like this:                                                                   <Riddle 12: Where can you get dragon milk? (3/15)>
+        """Declares how to represent a Riddle as a string
+        A riddle's string will look something like this
+        <Riddle 12: Where can you get dragon milk? (3/15)>
         """
         return "<Riddle {}: {} ({}/{})>".format(
             self.id or '(unsaved)', 
