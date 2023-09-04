@@ -7,54 +7,69 @@ from .models import Riddle
 def list_riddles(params):
     riddles = []
 
-    for riddle in Riddle.objects.all():
-        riddles.append(riddle.to_dict_answerless())
+    if len(Riddle.objects.all())  > 0:
 
-    return {'riddles':riddles}
+        for riddle in Riddle.objects.all():
+            riddles.append(riddle.to_dict_answerless())
 
-@route_post('riddles/new')
+        return {'riddles':riddles}
+    
+    else:
+        return {'error': 'no riddles exist'}
+
+
+@route_post('riddles/new', args={'question': str, 'answer': str})
 def create_riddle(params):
-    if 'question' not in params or 'answer' not in params:
-        raise BadRequest("incorrect request")
     
     riddle = Riddle.from_dict(params)
     errors = riddle.validate_create()
+    
     if len(errors) == 0:
         riddle.save()
         return {'riddle':riddle.to_dict()}
-    else:
-        raise BadRequest(errors[0])
-        
 
-@route_get('riddles/one')
-def show_riddle(params):
-    if 'id' not in params:
-        raise BadRequest('incorrect request')
+
+
+@route_get('riddles/one', args={'id': int})
+def one_riddle(params):
 
     id = params['id']
-    riddle = Riddle.objects.get(id=id)
-    return {'riddle':riddle.to_dict()}
 
-@route_post('riddles/guess')
+    if Riddle.objects.filter(id=id).exists():
+        riddle = Riddle.objects.get(id=id)
+        return {'riddle':riddle.to_dict()}
+
+    else:
+        return {'error': 'riddle does not exist'}
+
+@route_post('riddles/guess', args={'id': int, 'guess': str})
 def guess_answer(params):
-    if 'guess' not in params or 'id' not in params:
-        raise BadRequest('incorrect request')
 
     guess = params['guess']
     id = params['id']
-    riddle = Riddle.objects.get(id=id)
     
-    if riddle.check_guess(guess):
-        return {'correct':riddle.to_dict()}
+    if Riddle.objects.filter(id=id).exists():
+        riddle = Riddle.objects.get(id=id)
+        if riddle.check_guess(guess):
+            return {'correct':riddle.to_dict()}
 
+        else:
+            return {'incorrect guess':riddle.incorrect_guess()}
+        
     else:
-        return {'incorrect guess':riddle.incorrect_guess()}
+        return {'error': 'riddle does not exist'}
 
-@route_get('riddles/difficulty')
-def show_riddle(params):
-    if 'id' not in params:
-        raise BadRequest('incorrect request')
+    
+
+@route_get('riddles/difficulty', args={'id': int})
+def riddle_difficulty(params):
 
     id = params['id']
-    riddle = Riddle.objects.get(id=id)
-    return {'riddle':riddle.to_dict_difficulty()}
+
+    if Riddle.objects.filter(id=id).exists():
+        riddle = Riddle.objects.get(id=id)
+        return {'riddle':riddle.to_dict_difficulty()}
+        
+    else:
+        return {'error': 'riddle does not exist'}
+
