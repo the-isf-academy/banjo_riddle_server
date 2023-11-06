@@ -2,7 +2,6 @@ from banjo.urls import route_get, route_post
 from banjo.http import BadRequest
 from .models import Riddle
 
-
 @route_get('riddles/all')
 def list_riddles(params):
     riddles = []
@@ -20,7 +19,6 @@ def list_riddles(params):
 
 @route_post('riddles/new', args={'question': str, 'answer': str})
 def create_riddle(params):
-    
     riddle = Riddle.from_dict(params)
     errors = riddle.validate_create()
     
@@ -62,7 +60,8 @@ def guess_answer(params):
     
 
 @route_get('riddles/difficulty', args={'id': int})
-def riddle_difficulty(params):
+def get_riddle_difficuly(params):
+    riddle = Riddle.objects.get(id=params['id'])
 
     id = params['id']
 
