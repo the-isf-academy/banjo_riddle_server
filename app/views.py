@@ -44,14 +44,14 @@ def one_riddle(params):
 
 @route_post('riddles/guess', args={'id': int, 'guess': str})
 def guess_answer(params):
-
     guess = params['guess']
     id = params['id']
     
     if Riddle.objects.filter(id=id).exists():
         riddle = Riddle.objects.get(id=id)
         if riddle.check_guess(guess):
-            return {'correct':riddle.to_dict()}
+            # riddle_dict = riddle.to_dict()
+            return {'riddle':riddle.correct_guess()}
 
         else:
             return {'incorrect guess':riddle.incorrect_guess()}

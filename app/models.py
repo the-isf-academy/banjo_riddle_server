@@ -19,7 +19,9 @@ class Riddle(Model):
             self.guesses
         )
     
-    def to_dict_answerless(self):
+
+
+    def to_dict(self):
         return {
             "correct": self.correct,
             "guesses": self.guesses,
@@ -100,10 +102,20 @@ class Riddle(Model):
             return False
         
 
+    def correct_guess(self):
+        return {
+            "id": self.id,
+            "question": self.question,
+            "answer": self.answer,
+            "correct": self.correct,
+            "guesses": self.guesses,
+            'correct': True
+        }
 
     def incorrect_guess(self):
         return(
             {'id': self.id,
             'question': self.question,
-            'guesses': self.guesses}
+            'guesses': self.guesses,
+            'correct': False}
         )
