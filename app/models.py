@@ -23,7 +23,7 @@ class Riddle(Model):
     
 
 
-    def to_dict(self):
+    def to_dict_answerless(self):
         return {
             "correct": self.correct,
             "guesses": self.guesses,
