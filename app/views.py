@@ -2,7 +2,7 @@ from banjo.urls import route_get, route_post
 from banjo.http import BadRequest
 from .models import Riddle
 
-@route_get('riddles/all')
+@route_get('riddle/all')
 def list_riddles(params):
     riddles = []
 
@@ -17,7 +17,7 @@ def list_riddles(params):
         return {'error': 'no riddles exist'}
 
 
-@route_post('riddles/new', args={'question': str, 'answer': str})
+@route_post('riddle/new', args={'question': str, 'answer': str})
 def create_riddle(params):
     riddle = Riddle.from_dict(params)
     errors = riddle.validate_create()
@@ -28,7 +28,7 @@ def create_riddle(params):
 
 
 
-@route_get('riddles/one', args={'id': int})
+@route_get('riddle/one', args={'id': int})
 def one_riddle(params):
 
     id = params['id']
@@ -40,7 +40,7 @@ def one_riddle(params):
     else:
         return {'error': 'riddle does not exist'}
 
-@route_post('riddles/guess', args={'id': int, 'guess': str})
+@route_post('riddle/guess', args={'id': int, 'guess': str})
 def guess_answer(params):
     guess = params['guess']
     id = params['id']
@@ -52,14 +52,14 @@ def guess_answer(params):
             return {'riddle':riddle.correct_guess()}
 
         else:
-            return {'incorrect guess':riddle.incorrect_guess()}
+            return {'riddle':riddle.incorrect_guess()}
         
     else:
         return {'error': 'riddle does not exist'}
 
     
 
-@route_get('riddles/difficulty', args={'id': int})
+@route_get('riddle/difficulty', args={'id': int})
 def get_riddle_difficuly(params):
     riddle = Riddle.objects.get(id=params['id'])
 
