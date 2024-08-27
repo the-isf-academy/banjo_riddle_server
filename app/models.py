@@ -1,5 +1,5 @@
 from banjo.models import Model, StringField, IntegerField
-from fuzzywuzzy import fuzz
+# from fuzzywuzzy import fuzz
 
 class Riddle(Model):
     question = StringField()
@@ -93,9 +93,9 @@ class Riddle(Model):
         - "it's a stick"    74
         - "idk"             40                                                                                             """
         self.guesses += 1
-        similarity = fuzz.ratio(guess.lower(), self.answer.lower())
+        # similarity = fuzz.ratio(guess.lower(), self.answer.lower())
         
-        if similarity >= self.MIN_FUZZ_RATIO:
+        if guess == self.answer:
             self.correct+= 1
             self.save()
             return True

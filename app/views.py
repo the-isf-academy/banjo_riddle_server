@@ -2,7 +2,7 @@ from banjo.urls import route_get, route_post
 from banjo.http import BadRequest
 from .models import Riddle
 
-@route_get('riddle/all')
+@route_get('all')
 def list_riddles(params):
     riddles = []
 
@@ -29,9 +29,9 @@ def create_riddle(params):
 
 
 @route_get('riddle/one', args={'id': int})
-def one_riddle(params):
+def one_riddle(args):
 
-    id = params['id']
+    id = args['id']
 
     if Riddle.objects.filter(id=id).exists():
         riddle = Riddle.objects.get(id=id)
