@@ -1,2 +1,2 @@
 from banjo.settings import *
-API_PREFIX = "test/api"
+API_PREFIX = "riddle/api"

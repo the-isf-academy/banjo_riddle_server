@@ -3,7 +3,7 @@ from banjo.http import BadRequest
 from .models import Riddle
 
 @route_get('all')
-def list_riddles(params):
+def list_riddles(args):
     riddles = []
 
     if len(Riddle.objects.all())  > 0:
@@ -17,9 +17,9 @@ def list_riddles(params):
         return {'error': 'no riddles exist'}
 
 
-@route_post('riddle/new', args={'question': str, 'answer': str})
-def create_riddle(params):
-    riddle = Riddle.from_dict(params)
+@route_post('new', args={'question': str, 'answer': str})
+def create_riddle(args):
+    riddle = Riddle.from_dict(args)
     errors = riddle.validate_create()
     
     if len(errors) == 0:
@@ -28,7 +28,7 @@ def create_riddle(params):
 
 
 
-@route_get('riddle/one', args={'id': int})
+@route_get('one', args={'id': int})
 def one_riddle(args):
 
     id = args['id']
@@ -40,10 +40,10 @@ def one_riddle(args):
     else:
         return {'error': 'riddle does not exist'}
 
-@route_post('riddle/guess', args={'id': int, 'guess': str})
-def guess_answer(params):
-    guess = params['guess']
-    id = params['id']
+@route_post('guess', args={'id': int, 'guess': str})
+def guess_answer(args):
+    guess = args['guess']
+    id = args['id']
     
     if Riddle.objects.filter(id=id).exists():
         riddle = Riddle.objects.get(id=id)
@@ -59,11 +59,11 @@ def guess_answer(params):
 
     
 
-@route_get('riddle/difficulty', args={'id': int})
-def get_riddle_difficuly(params):
-    riddle = Riddle.objects.get(id=params['id'])
+@route_get('difficulty', args={'id': int})
+def get_riddle_difficuly(args):
+    riddle = Riddle.objects.get(id=args['id'])
 
-    id = params['id']
+    id = args['id']
 
     if Riddle.objects.filter(id=id).exists():
         riddle = Riddle.objects.get(id=id)
